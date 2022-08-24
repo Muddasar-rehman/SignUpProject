@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -39,6 +40,7 @@ export default function SignUp() {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   const registerUser = async (e) => {
     e.preventDefault();
@@ -55,6 +57,9 @@ export default function SignUp() {
     });
     const json = await response.json();
     console.log(json);
+    if (json.success) {
+      navigate("/welcom");
+    }
   };
 
   const change = (e) => {

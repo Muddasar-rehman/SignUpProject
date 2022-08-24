@@ -21,7 +21,7 @@ const singin = async (req, res) => {
       email: req.body.email,
     });
     if (!user) {
-      res.status(200).json({ message: "user doest not exit" });
+      return res.status(200).json({ message: "user doest not exit" });
     }
     const isValidPassword = bcrypt.compareSync(
       req.body.password,
@@ -29,11 +29,16 @@ const singin = async (req, res) => {
     );
 
     if (!isValidPassword) {
-      res.status(400).json({ message: "password does not match" });
+      return res.status(400).json({ message: "password does not match" });
     }
     res
       .status(200)
-      .json({ message: "Successfully login", user, isValidPassword });
+      .json({
+        message: "Successfully login",
+        user,
+        isValidPassword,
+        success: true,
+      });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

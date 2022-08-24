@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -39,6 +40,8 @@ export default function Signin() {
     password: "",
   });
 
+  const navigate = useNavigate();
+
   const registerUser = async (e) => {
     e.preventDefault();
     const response = await fetch(" http://localhost:3001/auth/singin", {
@@ -51,8 +54,14 @@ export default function Signin() {
         password: userInput.password,
       }),
     });
+
     const json = await response.json();
     console.log(json);
+
+    if (json.success) {
+      console.log("test123");
+      navigate("/welcom");
+    }
   };
 
   const change = (e) => {
